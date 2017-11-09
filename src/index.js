@@ -166,5 +166,5 @@ async function script() {
 }
 
 script();
-setInterval(script, 1000 * 60 * 6)
+setInterval(script, 1000 * 60 * 60 * 6)
 

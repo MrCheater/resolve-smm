@@ -2,12 +2,10 @@ import 'regenerator-runtime/runtime';
 import axios from 'axios';
 import GitHubApi from 'github';
 import { promisify } from 'util';
-import NeDB from 'nedb';
 import secret from './secret';
+import storage from './storage';
 
 async function script() {
-  const storage = new NeDB({ filename: 'storage.txt', autoload: true });
-
   const sleep = () => new Promise(resolve => setTimeout(resolve, 100));
 
   const getNpmDownloads = async () => {

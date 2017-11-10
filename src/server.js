@@ -1829,33 +1829,93 @@ app.get('/', async(req, res) => {
         <script>
             window.DATA = ${JSON.stringify(await getData())}
         </script>
+        <style>
+            body, html {
+                padding: 0;
+                margin: 0;
+            }
+            table, tr, td, th, caption {
+                padding: 0;
+                margin: 0;
+                border: 0;
+                border-collapse: collapse;
+            }
+            table {
+                width: 100%;
+                border: 3px solid #333;
+                box-sizing: border-box;
+                margin-bottom: -3px;
+            }
+            caption {
+                font-size: 32px;
+                font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+                font-weight: 200;
+                color: #232323;
+            }
+            #date-selector {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100px;
+                background-color: #eee;
+            }
+        </style>
     </head>
-    <body class="dx-viewport">
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td id="views-count" width="50%">
-                        <div id="views-count-zoomed-chart"></div>
-                    </td>
-                    <td id="views-uniques" width="50%">
-                        <div id="views-uniques-zoomed-chart"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="clones-count" width="50%">
-                        <div id="clones-count-zoomed-chart"></div>
-                    </td>
-                    <td id="clones-uniques" width="50%">
-                        <div id="clones-uniques-zoomed-chart"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div id="date-selector"></div>
-                    </td>
-                </tr>
-            </tbody>
+    <body>
+        <table>
+            <caption>Resolve</caption>
+            <tr>
+                <td width="33%">
+                    <div id="resolve-watchers-zoomed-chart"></div>
+                </td>
+                <td width="33%">
+                    <div id="resolve-stars-zoomed-chart"></div>
+                </td>
+                <td width="33%">
+                    <div id="resolve-forks-zoomed-chart"></div>
+                </td>
+            </tr>
         </table>
+        <table>
+            <tr>
+                <td width="100%">
+                    <div id="resolve-issues-zoomed-chart"></div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td width="50%">
+                    <div id="resolve-views-count-zoomed-chart"></div>
+                </td>
+                <td width="50%">
+                    <div id="resolve-views-uniques-zoomed-chart"></div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td width="50%">
+                    <div id="resolve-clones-count-zoomed-chart"></div>
+                </td>
+                <td width="50%">
+                    <div id="resolve-clones-uniques-zoomed-chart"></div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td  width="50%">
+                    <div id="resolve-refferers-count-chart"></div>
+                </td>
+                <td width="50%">
+                    <div id="resolve-refferers-uniques-chart"></div>
+                </td>
+            </tr>
+        </table>
+        <div style="height:110px"></div>
+        <div id="date-selector"></div>
     </body>
     </html>
   `)

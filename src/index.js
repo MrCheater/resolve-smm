@@ -48,6 +48,7 @@ async function script() {
         if(path.includes('/graphs')) { return false }
         if(path.includes('/issues')) { return false }
         if(path.includes('/branches')) { return false }
+        if(path.includes('/network')) { return false }
         return true;
       }
     ).map(

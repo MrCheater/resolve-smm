@@ -39,6 +39,7 @@ app.get('/', async(req, res) => {
                 text-align: center;
             }
             table, tr, td, th, caption {
+                vertical-align: top;
                 padding: 0;
                 margin: 0;
                 border: 0;
@@ -141,11 +142,13 @@ app.get('/', async(req, res) => {
             </tr>
         </table>
         
-        
-        <br/>
-        <br/>
-        <br/>
-        
+        <table>
+            <tr>
+                <td style="background-color:#000">
+                    <br/>
+                </td>
+            </tr>
+        </table>
         
         <table>
             <caption>Hacker news</caption>
@@ -215,6 +218,27 @@ app.get('/', async(req, res) => {
             <tr>
                 <td colspan="2">
                     <div id="hacker-news-pages-chart-types"></div>
+                </td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr>
+                <td style="background-color:#000">
+                    <br/>
+                </td>
+            </tr>
+        </table>
+        
+        <table>
+            <caption>NPM</caption>
+            <tr>
+                <td width="50%">
+                    <div id="npm-downloads-chart"></div>
+                    <div id="npm-downloads-chart-types"></div>
+                </td>
+                <td width="50%">
+                    <div id="npm-downloads-average-chart"></div>
                 </td>
             </tr>
         </table>

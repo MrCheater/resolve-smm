@@ -996,6 +996,120 @@ $(function(){
   });
 
   ////////////////////////////////////////
+
+  var npmPackagesList = [];
+
+  window.DATA.forEach(
+    function (item) {
+      return item.npm.map(
+        function (obj) {
+          if(!npmPackagesList.includes(obj.name)) {
+            npmPackagesList.push(obj.name)
+          }
+        }
+      )
+    }
+  );
+
+  var npmDownloadsDataSource = window.DATA.map(
+    function (item) {
+      var result = {
+        timestamp: item.timestamp,
+      };
+      item.npm.forEach(
+        function (obj) {
+          result[obj.name] = obj.downloads || 0
+        }
+      )
+      return result
+    }
+  );
+
+  var npmDownloadsChart = $("#npm-downloads-chart").dxChart({
+    dataSource: npmDownloadsDataSource,
+    palette: palette,
+    commonSeriesSettings: {
+      type: "stackedarea",
+      argumentField: "timestamp"
+    },
+    series: npmPackagesList.map(
+      function (packageName) {
+        return { valueField: packageName, name: packageName }
+      }
+    ),
+    title: "npm downloads",
+    useAggregation: true,
+    argumentAxis: {
+      valueMarginsEnabled: false,
+      argumentType: 'datetime'
+    },
+    tooltip: {
+      enabled: true,
+      customizeTooltip(args) {
+        return {
+          text: args.seriesName + ' (' + args.value + ')'
+        };
+      }
+    },
+    legend: {
+      verticalAlignment: "bottom",
+      horizontalAlignment: "center"
+    }
+  }).dxChart("instance");
+
+  $("#npm-downloads-chart-types").dxSelectBox({
+    dataSource: ["area", "stackedarea", "fullstackedarea"],
+    value: "stackedarea",
+    onValueChanged: function(e){
+      npmDownloadsChart.option("commonSeriesSettings.type", e.value);
+    }
+  });
+
+  var npmDownloadsAverageDataSource = window.DATA.map(
+    function (item) {
+      var result = {
+        timestamp: item.timestamp,
+        downloads: 0
+      };
+      item.npm.forEach(
+        function (obj) {
+          result.downloads += obj.downloads || 0
+        }
+      )
+      result.downloads /= item.npm.length;
+      return result
+    }
+  );
+
+  var npmDownloadsAverageChart = $("#npm-downloads-average-chart").dxChart({
+    dataSource: npmDownloadsAverageDataSource,
+    title: 'npm downloads average',
+    argumentAxis: {
+      valueMarginsEnabled: false,
+      argumentType: 'datetime'
+    },
+    useAggregation: true,
+    legend: {
+      visible: false
+    },
+    series: {
+      argumentField: 'timestamp',
+      valueField: 'downloads',
+      point: {
+        size: 7
+      }
+    },
+    tooltip: {
+      enabled: true,
+      customizeTooltip(args) {
+        return {
+          text: args.seriesName + ' (' + args.value + ')'
+        };
+      }
+    }
+  }).dxChart("instance");
+
+  ////////////////////////////////////////
   ////////////////////////////////////////
 
   var dateDataSource = window.DATA.map(
@@ -1058,6 +1172,9 @@ $(function(){
         hackerNewsRefferersUniquesChart.zoomArgument(dx, dy);
         hackerNewsPagesCountChart.zoomArgument(dx, dy);
         hackerNewsPagesUniquesChart.zoomArgument(dx, dy);
+
+        npmDownloadsChart.zoomArgument(dx, dy);
+        npmDownloadsAverageChart.zoomArgument(dx, dy);
       }, 50)
     }
   });
